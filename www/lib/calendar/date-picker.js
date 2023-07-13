@@ -9,7 +9,32 @@ define([
         var end = cfg.endpicker;
 
         var is24h = false
-        var dateFormat = "Y-m-d H:i";
+        var dateFormat = "d.m.Y H:i";
+        var locale = {
+                firstDayOfWeek: 1,
+                weekAbbreviation: "KW",
+                weekdays: {
+                    shorthand: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+                    longhand: ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
+                },
+                months: {
+                    shorthand: ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],
+                    longhand: [
+                        "Januar",
+                        "Februar",
+                        "März",
+                        "April",
+                        "Mai",
+                        "Juni",
+                        "Juli",
+                        "August",
+                        "September",
+                        "Oktober",
+                        "November",  
+                        "Dezember",
+                    ],
+                },
+            };
         try {
             is24h = !new Intl.DateTimeFormat(navigator.language, { hour: 'numeric' }).format(0).match(/AM/);
         } catch (e) {}
@@ -17,6 +42,7 @@ define([
 
         var e = $(end.input)[0];
         var endPickr = Flatpickr(e, {
+            locale: locale,
             enableTime: true,
             time_24hr: is24h,
             dateFormat: dateFormat,
@@ -26,6 +52,7 @@ define([
 
         var s = $(start.input)[0];
         var startPickr = Flatpickr(s, {
+            locale: locale,
             enableTime: true,
             time_24hr: is24h,
             dateFormat: dateFormat,
